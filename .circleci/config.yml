@@ -31,6 +31,17 @@
         
        - store_artifacts:
           path: /tmp/artifacts
+   three:
+     docker:
+       - image: circleci/ruby:2.4.1
+     working_directory: /tmp
+     steps:
+       - run: 
+          name: Compress Artifacts
+          command: tar -cvf myartifact.tar path/to/artifacts
+       - store_artifacts:
+          path: myartifact.tar
+          destination: artifact_name
           
  workflows:
   version: 2
@@ -40,5 +51,7 @@
     - two:
        requires:
         - one
+    - three
+    
        
  
