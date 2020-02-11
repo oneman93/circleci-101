@@ -38,7 +38,7 @@
      steps:
        - run: 
           name: Compress Artifacts
-          command: tar -cvf myartifact.tar path/to/artifacts
+          command: tar -cvf myartifact.tar /tmp
        - store_artifacts:
           path: myartifact.tar
           destination: artifact_name
@@ -52,6 +52,8 @@
        requires:
         - one
     - three
+       requires:
+        - two
     
        
  
