@@ -17,19 +17,20 @@
    two:
      docker:
        - image: circleci/ruby:2.4.1
+     working_directory: /tmp
      steps:
-       - checkout
-       - run: echo "A more familiar hi"
-       - attach_workspace:
-          # must be absolute path or relative path from working_directory
-          at: my_workspace
+       - run: 
+        name: Creating Dummy Artifacts
+        command: |
+         echo "my artifact file" > /tmp/artifact-1;
+         mkdir /tmp/artifacts;
+         echo "my artifact files in a dir" > /tmp/artifacts/artfact-2;
+       - store_artifacts:
+        path: /tmp/artifact-1
+        destination: artifact-file
         
-       - run: |
-          if [[ $(cat my_workspace/echo-output) == "Trying out workspaces" ]]; then
-           echo "It worked!";
-          else
-           echo "Nope!"; exit 1
-          fi
+       - store_artifacts:
+        path: /tmp/artifacts
           
  workflows:
   version: 2
